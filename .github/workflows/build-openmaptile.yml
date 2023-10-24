@@ -20,7 +20,7 @@ jobs:
         id: define_env
         run: |
           echo "::set-output name=github-sha-short::$(echo $GITHUB_SHA | cut -c 1-7)"
-          
+
       - name: Login to ACR
         if: success()
         uses: azure/docker-login@v1
@@ -38,7 +38,7 @@ jobs:
         with:
           repository: 'Fujitsu-Blockchain/charts'
           ref: '${{ env.BWXDevTargetBranch }}'
-          token: ${{ secrets.TALAL_TOKEN}}
+          # token: ${{ secrets.TALAL_TOKEN}}
       - name: Edit values
         uses: mikefarah/yq@v4.16.2
         with:
