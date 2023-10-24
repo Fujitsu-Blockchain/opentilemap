@@ -14,6 +14,13 @@ jobs:
   dev_docker_build:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2.3.4
+      - name: Define ENV VARS
+        id: define_env
+        run: |
+          echo "::set-output name=github-sha-short::$(echo $GITHUB_SHA | cut -c 1-7)"
+          
       - name: Login to ACR
         if: success()
         uses: azure/docker-login@v1
