@@ -31,21 +31,21 @@ jobs:
       - name: Build and Push docker image
         run: "docker build -t bwxacr.azurecr.io/${{ env.fullname }}:${{ steps.define_env.outputs.github-sha-short }} .\ndocker push  bwxacr.azurecr.io/${{ env.fullname }}:${{ steps.define_env.outputs.github-sha-short }} \n"
 
-      # - name: Checkout
-      #   uses: actions/checkout@v2.3.4
-      #   with:
-      #     repository: 'Fujitsu-Blockchain/charts'
-      #     ref: '${{ env.BWXDevTargetBranch }}'
-      #     token: ${{ secrets.OPENMAP_TOKEN}}
-      # - name: Edit values
-      #   uses: mikefarah/yq@v4.16.2
-      #   with:
-      #     cmd: yq e -i '.image.tag="'${{ steps.define_env.outputs.github-sha-short }}'"' 'hlf-frontend/${{ env.fullname }}-values.yaml'
-      # - name: commit frontend chart
-      #   uses: EndBug/add-and-commit@v7.5.0
-      #   with:
-      #     cwd: './'
-      #     message: Github Action has pushed a new image with commit hash "${{ github.sha }}"
-      #     committer_name: GitHub Actions
-      #     push: true
-      #     branch: '${{ env.BWXDevTargetBranch}}'
+      - name: Checkout
+        uses: actions/checkout@v2.3.4
+        with:
+          repository: 'Fujitsu-Blockchain/charts'
+          ref: '${{ env.BWXDevTargetBranch }}'
+          token: ${{ secrets.OPENMAP_TOKEN }}
+      - name: Edit values
+        uses: mikefarah/yq@v4.16.2
+        with:
+          cmd: yq e -i '.image.tag="'${{ steps.define_env.outputs.github-sha-short }}'"' 'hlf-frontend/${{ env.fullname }}-values.yaml'
+      - name: commit frontend chart
+        uses: EndBug/add-and-commit@v7.5.0
+        with:
+          cwd: './'
+          message: Github Action has pushed a new image with commit hash "${{ github.sha }}"
+          committer_name: GitHub Actions
+          push: true
+          branch: '${{ env.BWXDevTargetBranch}}'
