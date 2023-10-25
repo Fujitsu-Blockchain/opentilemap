@@ -24,7 +24,7 @@ jobs:
         if: success()
         uses: azure/docker-login@v1
         with:
-          registry: ${{ secrets.BWX_DEV_ACR_URL }}
+          login-server: ${{ secrets.BWX_DEV_ACR_URL }}
           username: ${{ secrets.BWX_DEV_ACR_USER }}
           password: ${{ secrets.BWX_DEV_ACR_PWD }}
 
